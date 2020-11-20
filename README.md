@@ -1,6 +1,6 @@
 # Image Size Proportion
 
-> I've always wanted to have the proportions of an image to scale quickly without using an image editor... so I made this one.
+> I always wanted to have the proportions of an image very quickly without using an image editor... so I coded mine.
 
 ![Image Size Proportion](https://i.imgur.com/wc1mQpi.png)
 
