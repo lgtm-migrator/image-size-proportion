@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <Calculator />
+    <Footer />
   </div>
 </template>
 
 <script>
-import Calculator from '@/components/Calculator.vue'
+import Calculator from '@/components/Calculator'
+import Footer from '@/components/Footer'
 
 export default {
   name: 'App',
   components: {
     Calculator,
+    Footer,
   },
 }
 </script>
