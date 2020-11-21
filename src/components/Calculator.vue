@@ -12,7 +12,7 @@
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-6">
+        <div class="col-5">
           <h3>
             1️⃣ Input original sizes:
             <o-button
@@ -31,7 +31,13 @@
               size="large"
               step="1"
               min="1"
+              :max="maxNum"
               v-model="originalWidth"
+              @blur="
+                originalWidth >= maxNum
+                  ? (originalWidth = maxNum)
+                  : originalWidth
+              "
             ></o-input>
           </o-field>
           <o-field label="Original height (px)">
@@ -41,7 +47,13 @@
               size="large"
               step="1"
               min="1"
+              :max="maxNum"
               v-model="originalHeight"
+              @blur="
+                originalHeight >= maxNum
+                  ? (originalHeight = maxNum)
+                  : originalHeight
+              "
             ></o-input>
           </o-field>
           <o-button
@@ -49,13 +61,22 @@
             @click="calculateRatio()"
             :disabled="originalWidth === '' || originalHeight === ''"
           >
-            Calculate Ratio 👉
+            Calculate ratio 👉
           </o-button>
-          <o-button variant="primary" inverted disabled v-if="ratio">{{
-            ratio
-          }}</o-button>
+          <o-button variant="primary" inverted disabled v-if="ratio"
+            >{{ ratio }} (<i v-if="ratio > 1">Landscape</i
+            ><i v-else-if="ratio < 1">Portrait</i
+            ><i v-else-if="ratio === 1">Square</i>)</o-button
+          >
         </div>
-        <div class="col-6">
+        <div class="col-2">
+          <div
+            class="ratio hidden-sm"
+            :style="{ width: `${calcWidth}px`, height: `${calcHeight}px` }"
+            v-if="ratio"
+          ></div>
+        </div>
+        <div class="col-5">
           <h3>
             2️⃣ Select one to get size proportion:
             <o-button
@@ -87,8 +108,14 @@
                   size="large"
                   step="1"
                   min="1"
+                  :max="maxNum"
                   v-model="resizedWidth"
                   :disabled="radio !== 'NewWidth'"
+                  @blur="
+                    resizedWidth >= maxNum
+                      ? (resizedWidth = maxNum)
+                      : resizedWidth
+                  "
                 ></o-input>
               </o-field>
             </div>
@@ -113,8 +140,14 @@
                   size="large"
                   step="1"
                   min="1"
+                  :max="maxNum"
                   v-model="resizedHeight"
                   :disabled="radio !== 'NewHeight'"
+                  @blur="
+                    resizedHeight >= maxNum
+                      ? (resizedHeight = maxNum)
+                      : resizedHeight
+                  "
                 ></o-input>
               </o-field>
               <o-button
@@ -144,14 +177,23 @@ export default {
       resizedWidth: '',
       resizedHeight: '',
       radio: '',
+      maxNum: 2000,
     }
+  },
+  computed: {
+    calcWidth() {
+      return this.ratio > 1 ? 50 : this.ratio < 1 ? 100 : 100
+    },
+    calcHeight() {
+      return this.ratio > 1 ? 200 : this.ratio < 1 ? 30 : 100
+    },
   },
   methods: {
     calculateRatio() {
       this.emptyFields('resized')
       if (this.originalWidth !== '' && this.originalHeight !== '') {
         this.ratio = parseFloat(
-          (this.originalWidth / this.originalHeight).toFixed(2)
+          (this.originalWidth / this.originalHeight).toFixed(3)
         )
       }
     },
@@ -190,6 +232,16 @@ export default {
     font-style: italic;
     font-size: 0.6em;
   }
+}
+
+.ratio {
+  $s: 100px;
+
+  margin: 100% auto 0;
+  width: $s;
+  height: $s;
+  border: 2px dashed #999;
+  transition: all 0.3s ease;
 }
 </style>
 
