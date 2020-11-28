@@ -220,7 +220,13 @@ export default {
 .box-calculator {
   padding: 2rem 0;
   min-height: calc(100vh - 46px);
-  background-color: #eee;
+  background-color: #e5e5f7;
+  background-image: repeating-radial-gradient(
+      circle at 0 0,
+      transparent 0,
+      #e5e5f7 40px
+    ),
+    repeating-linear-gradient(#d8d8f555, #d8d8f5);
 }
 .title {
   margin: 0 0 2rem;
