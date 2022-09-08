@@ -19,8 +19,6 @@ export default {
 </script>
 
 <style lang="scss">
-// https://simplegrid.io/
-
 @import url('https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic');
 
 // fonts
@@ -130,6 +128,7 @@ p {
 }
 
 // grid
+// https://simplegrid.io/
 $width: 96%;
 $gutter: 4%;
 $breakpoint-small: 33.75em; // 540px
