@@ -13,7 +13,7 @@ jobs:
             - name: "Checkout source code"
               uses: "actions/checkout@v2"
               with:
-                  token: ${{ secrets.TOKEN }}
+                  token: ${{ secrets.AUTOMATIC_VERSION_BUMP }}
                   fetch-depth: 0
             - name: "Bump version"
               uses: Wawa27/automatic-version-bump@master
