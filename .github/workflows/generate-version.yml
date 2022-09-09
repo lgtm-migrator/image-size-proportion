@@ -26,7 +26,7 @@ jobs:
       - name: eslint
         run: npm run lint
       - name: test
-        run: npm test:unit
+        run: npm run test:unit
         env:
           CI: true
       - uses: actions/upload-artifact@v2
